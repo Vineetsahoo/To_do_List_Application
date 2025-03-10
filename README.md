@@ -31,7 +31,7 @@ npm start
 Open `http://localhost:3000/` in your browser to use the app.
 
 ## 🎨 Screenshots
-Coming Soon! *(Feel free to add screenshots of your app here)*
+Coming Soon!
 
 ## 🤝 Contributing
 We welcome contributions! If you have ideas for improvements, you can fix the repository, open an issue, or submit a pull request.
