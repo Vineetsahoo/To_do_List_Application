@@ -57,7 +57,9 @@ function App() {
   const sortedTodos = [...todos].sort((a, b) => {
     switch (sortBy) {
       case 'date':
-        return (a.dueDate || '') > (b.dueDate || '') ? 1 : -1;
+        if (!a.dueDate) return 1;
+        if (!b.dueDate) return -1;
+        return new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime();
       case 'priority':
         const priorityOrder = { high: 3, medium: 2, low: 1 };
         return priorityOrder[b.priority] - priorityOrder[a.priority];
@@ -142,15 +144,19 @@ function App() {
 
           {/* Sorting Options */}
           <div className="mb-6">
-            <select
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value as 'date' | 'priority' | 'category')}
-              className="px-4 py-2.5 text-sm rounded-xl border border-gray-200 bg-white/50 shadow-sm focus:ring-2 focus:ring-violet-500 focus:border-transparent"
-            >
-              <option value="date">📅 Sort by Date</option>
-              <option value="priority">🎯 Sort by Priority</option>
-              <option value="category">🏷️ Sort by Category</option>
-            </select>
+            <div className="flex items-center gap-3">
+              <label htmlFor="sortOptions" className="text-sm font-medium text-gray-600">Sort by:</label>
+              <select
+                id="sortOptions"
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value as 'date' | 'priority' | 'category')}
+                className="px-4 py-2.5 text-sm rounded-xl border border-gray-200 bg-white/50 shadow-sm focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all hover:bg-white/70"
+              >
+                <option value="date">📅 Sort by Date</option>
+                <option value="priority">🎯 Sort by Priority</option>
+                <option value="category">🏷️ Sort by Category</option>
+              </select>
+            </div>
           </div>
 
           {/* Todo List */}
